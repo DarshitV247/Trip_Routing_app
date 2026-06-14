@@ -1,0 +1,124 @@
+/* =========================
+   Truck Animation
+========================= */
+
+.truck {
+  animation: truckBounce 2.5s ease-in-out infinite;
+  transform-origin: center bottom;
+}
+
+@keyframes truckBounce {
+  0% {
+    transform: translateY(0px);
+  }
+
+  50% {
+    transform: translateY(-3px);
+  }
+
+  100% {
+    transform: translateY(0px);
+  }
+}
+
+/* =========================
+   Trees
+========================= */
+
+.tree-1 {
+  animation: treePass 8s linear infinite;
+}
+
+.tree-2 {
+  animation: treePass 8s linear infinite;
+  animation-delay: -2s;
+}
+
+.tree-3 {
+  animation: treePass 8s linear infinite;
+  animation-delay: -4s;
+}
+
+.tree-4 {
+  animation: treePass 8s linear infinite;
+  animation-delay: -6s;
+}
+
+@keyframes treePass {
+  from {
+    transform: translateX(120vw);
+  }
+
+  to {
+    transform: translateX(-250px);
+  }
+}
+
+
+/* =========================
+   Road Animation
+========================= */
+
+.road-line {
+  width: 100%;
+  height: 4px;
+
+  background-image: repeating-linear-gradient(
+    to right,
+    white 0px,
+    white 50px,
+    transparent 50px,
+    transparent 100px
+  );
+
+  animation: roadMove 1.2s linear infinite;
+}
+
+@keyframes roadMove {
+  from {
+    background-position-x: 0;
+  }
+
+  to {
+    background-position-x: -100px;
+  }
+}
+
+/* =========================
+   Clouds
+========================= */
+
+.cloud {
+  position: absolute;
+  animation: cloudMove 35s linear infinite;
+}
+
+@keyframes cloudMove {
+  from {
+    transform: translateX(-200px);
+  }
+
+  to {
+    transform: translateX(120vw);
+  }
+}
+
+/* =========================
+   Hero Entrance
+========================= */
+
+.hero-content {
+  animation: heroFade 0.8s ease;
+}
+
+@keyframes heroFade {
+  from {
+    opacity: 0;
+    transform: translateY(25px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
