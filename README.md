@@ -2,93 +2,98 @@
 
 ## Overview
 
-Truck Routing & HOS Compliance Planner is a full-stack logistics management application designed to help trucking companies, dispatchers, and fleet managers efficiently plan routes while maintaining FMCSA Hours of Service (HOS) compliance.
+Truck Routing & HOS Compliance Planner is a full-stack logistics and compliance management platform designed to help trucking companies, dispatchers, and fleet operators plan trips while maintaining FMCSA Hours of Service (HOS) compliance.
 
-The system calculates optimized trip routes, estimates fuel stops, generates HOS-compliant schedules, creates ELD log sheets, and exports professional PDF reports for driver records and compliance documentation.
+The application calculates routes, generates HOS-compliant schedules, creates FMCSA-style ELD log sheets, tracks fuel and rest stops, and exports downloadable PDF trip packets for compliance documentation.
 
 ---
 
 # Features
 
-## Route Planning
+## Trip Planning
 
-* Current Location → Pickup → Dropoff route calculation
-* Route distance estimation
-* Travel duration estimation
-* Turn-by-turn route instructions
+* Current Location → Pickup → Dropoff route planning
+* Route distance calculation
+* Estimated travel duration
+* Multi-day trip scheduling
 * Route summary generation
-* Interactive route map visualization
-
-## Fuel Stop Planning
-
-* Automatic fuel stop calculation
-* Fuel stop placement based on trip distance
-* Fuel stop markers displayed on map
-* Fuel stop timeline generation
 
 ## Hours of Service (HOS)
 
-* FMCSA-compliant trip scheduling
-* Driving hour calculations
-* Rest break planning
-* Off-duty scheduling
+* FMCSA-compliant scheduling
+* Daily driving hour calculations
+* Mandatory break scheduling
+* Off-duty management
 * Sleeper berth scheduling
-* Multi-day trip planning
 * Cycle hour tracking
+* Multi-day trip support
+
+## Fuel Stop Planning
+
+* Automatic fuel stop estimation
+* Fuel stop count generation
+* Fuel stop timeline integration
+
+## Rest Stop Planning
+
+* Automatic break scheduling
+* HOS-compliant rest periods
+* Rest stop tracking
 
 ## Trip Timeline
 
-* Current location
-* Pickup location
-* Fuel stops
-* Rest stops
-* Dropoff location
+Generate a complete trip timeline including:
 
-Presented in a clear chronological timeline.
+* Current Location
+* Pickup Location
+* Fuel Stops
+* Rest Stops
+* Dropoff Location
 
 ## ELD Log Generation
 
-Generate electronic logging device (ELD) records including:
+Generate FMCSA-style ELD logs containing:
 
 * Carrier Name
 * Truck Number
+* Trailer Number
+* Shipping Document Information
 * Odometer Reading
-* Route Information
-* Daily Activity Logs
-* Duty Status Records
+* Daily Activity Records
+* Duty Status Logs
 
-## FMCSA Log Sheets
+## FMCSA Daily Log Sheets
 
-Automatic generation of:
+Automatically generates:
 
-* Daily log sheets
-* Duty status graphs
-* Activity summaries
-* Printable records
+* Daily Log Sheets
+* Duty Status Graphs
+* Driver Activity Timelines
+* Printable Compliance Records
 
 ## PDF Export
 
-Generate downloadable trip packets including:
+Generate downloadable PDF trip packets containing:
 
-* Daily ELD logs
-* FMCSA-style duty status charts
-* Multi-day reports
-* PDF documentation
+* Daily ELD Logs
+* FMCSA Duty Status Charts
+* Multi-Day Driver Logs
+* Compliance Documentation
 
 ## Dashboard Analytics
 
-* Total trips
-* Total distance traveled
-* Fuel stop count
-* Rest stop count
-* Trip statistics
+* Total Trips
+* Total Distance
+* Fuel Stop Count
+* Rest Stop Count
+* Trip Statistics
 
 ## Trip History
 
-* View previous trips
-* Retrieve trip details
-* Access generated ELD reports
-* Review route summaries
+* View Historical Trips
+* Access Trip Details
+* Review Generated Reports
+* Retrieve Route Summaries
 
 ---
 
@@ -102,8 +107,6 @@ Generate downloadable trip packets including:
 * Axios
 * React Hot Toast
 * Lucide React
-* Leaflet Maps
-* React Leaflet
 
 ## Backend
 
@@ -111,11 +114,10 @@ Generate downloadable trip packets including:
 * Django REST Framework
 * Python
 
-## Mapping & Routing
+## Routing Services
 
 * OpenRouteService API
 * Geopy
-* Polyline
 
 ## PDF & Log Generation
 
@@ -124,8 +126,25 @@ Generate downloadable trip packets including:
 
 ## Database
 
-* SQLite (Development)
-* PostgreSQL (Production Ready)
+* SQLite
+
+---
+
+# System Architecture
+
+Frontend (Vercel)
+
+↓
+
+Django REST API (Render)
+
+↓
+
+SQLite Database
+
+↓
+
+PDF & Log Generation Services
 
 ---
 
@@ -143,17 +162,15 @@ backend/
 
 │ ├── urls.py
 
-│ ├── serializers.py
+│ ├── services/
 
-│ └── services/
+│ │ ├── hos_service.py
 
-│ ├── hos_service.py
+│ │ ├── route_service.py
 
-│ ├── route_service.py
+│ │ ├── log_service.py
 
-│ ├── log_service.py
-
-│ └── pdf_service.py
+│ │ └── pdf_service.py
 
 │
 
@@ -166,6 +183,8 @@ backend/
 │ └── generated_pdfs/
 
 │
+
+├── manage.py
 
 └── db.sqlite3
 
@@ -220,17 +239,16 @@ pip install -r requirements.txt
 ### Run Migrations
 
 ```bash
-python manage.py makemigrations
 python manage.py migrate
 ```
 
-### Start Backend Server
+### Start Backend
 
 ```bash
 python manage.py runserver
 ```
 
-Backend runs at:
+Backend URL:
 
 ```text
 http://127.0.0.1:8000
@@ -238,21 +256,21 @@ http://127.0.0.1:8000
 
 ---
 
-# Frontend Setup
+## Frontend Setup
 
-Install Dependencies
+### Install Dependencies
 
 ```bash
 npm install
 ```
 
-Run Development Server
+### Run Frontend
 
 ```bash
 npm run dev
 ```
 
-Frontend runs at:
+Frontend URL:
 
 ```text
 http://localhost:5173
@@ -262,7 +280,7 @@ http://localhost:5173
 
 # Environment Variables
 
-Create a `.env` file inside backend:
+Create a `.env` file inside the backend folder:
 
 ```env
 ORS_API_KEY=YOUR_OPENROUTESERVICE_API_KEY
@@ -302,7 +320,7 @@ POST /api/generate-complete-trip/
 GET /api/trip-history/
 ```
 
-## Trip Details
+## Trip Detail
 
 ```http
 GET /api/trip/<trip_id>/
@@ -328,17 +346,28 @@ GET /api/download-pdf/<filename>/
 
 ---
 
+# Deployment
+
+## Frontend
+
+Hosted on Vercel
+
+## Backend
+
+Hosted on Render
+
+---
+
 # Future Enhancements
 
 * User Authentication
-* Driver Login Portal
 * Fleet Management Dashboard
+* Driver Portal
 * Real-Time GPS Tracking
 * Driver Scorecards
 * Fuel Cost Estimation
 * Maintenance Scheduling
 * AI-Based Route Optimization
-* Multi-Carrier Support
 * Mobile Application
 * Cloud Storage Integration
 * Role-Based Access Control
@@ -355,5 +384,3 @@ GET /api/download-pdf/<filename>/
 * Compliance Managers
 * Transportation Startups
 
----
-"# TripRouting" 
