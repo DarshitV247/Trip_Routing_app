@@ -21,7 +21,7 @@ const handleSubmit = async (e) => {
     const filename = response.data.pdf_file.split("/").pop();
     const link = document.createElement("a");
 
-    link.href = `http://127.0.0.1:8000/api/download-pdf/${filename}/`;
+    link.href = `https://trip-routing-app.onrender.com/api/download-pdf/${filename}/`;
     link.setAttribute("download",filename);
 
     document.body.appendChild(link);
