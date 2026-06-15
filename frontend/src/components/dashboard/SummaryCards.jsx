@@ -9,12 +9,14 @@ import {
 export default function SummaryCards({ summary }) {
 
   if (!summary) {
-    return (
-      <div className="bg-red-100 text-red-600 p-5 rounded-xl">
-        No summary data received
-      </div>
-    );
-  }
+  summary = {
+    total_distance: 0,
+    driving_hours: 0,
+    fuel_stops: 0,
+    trip_days: 0,
+    rest_stops: 0
+  };
+}
 
   const cards = [
     {

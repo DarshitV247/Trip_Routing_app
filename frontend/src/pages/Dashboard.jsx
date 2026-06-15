@@ -32,10 +32,7 @@ export default function Dashboard() {
 
   const handleTripCalculated = (data) => {
     setTripData(data);
-
-    if (data.dashboard_summary) {
-      setSummary(data.dashboard_summary);
-    }
+    await fetchSummary();
   };
 
   return (
